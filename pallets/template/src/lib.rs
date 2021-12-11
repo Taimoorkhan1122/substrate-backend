@@ -8,7 +8,6 @@ pub mod pallet {
 	use frame_support::pallet_prelude::*;
 	use frame_system::pallet_prelude::*;
 	use sp_std::vec::Vec;
-	
 
 	#[pallet::config] // <-- Step 2. code block will replace this.
 	pub trait Config: frame_system::Config {
@@ -26,10 +25,9 @@ pub mod pallet {
 		NoSuchProof,
 		NotProofOwner,
 	}
+	
 	#[pallet::pallet]
 	#[pallet::generate_store(pub(super) trait Store)]
-	#[pallet::generate_storage_info]
-	fn storage_info() -> Vec<StorageInfo>;
 	pub struct Pallet<T>(_);
 
 	#[pallet::storage]
@@ -51,6 +49,7 @@ pub mod pallet {
 			Self::deposit_event(Event::ClaimCreated(sender, proof));
 			Ok(())
 		}
+		
 		#[pallet::weight(10_000)]
 		pub fn revoke_claim(
 			origin: OriginFor<T>,
